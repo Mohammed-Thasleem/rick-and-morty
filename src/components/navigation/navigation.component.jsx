@@ -14,13 +14,12 @@ const Navigation = () => {
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
       <nav className="navbar" onClick={(e) => e.stopPropagation()}>
         <div className="nav-container">
-          <NavLink exact to="/" className="nav-logo-container">
+          <NavLink to="/" className="nav-logo-container">
             <img src={logo} className="nav-logo" alt="logo" />
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <NavLink
-                exact
                 to="/"
                 activeclassname="active"
                 className="nav-links"
@@ -31,7 +30,6 @@ const Navigation = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                exact
                 to="/episodes"
                 activeclassname="active"
                 className="nav-links"
