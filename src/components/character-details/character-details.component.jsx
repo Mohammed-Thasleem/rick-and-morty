@@ -57,10 +57,10 @@ const CharacterDetails = () => {
         <p>{`Origin: ${data.character.origin.name}`}</p>
         <p>{`Location: ${data.character.location.name}`}</p>
         <Collapse>
-          <Panel header="Characters">
+          <Panel header="Episodes">
             {data?.character?.episode?.map((episode) => (
               <ol key={episode.id}>
-                <Link to={episode.id} key={episode.id}>
+                <Link to={`/episodes/${episode.id}`} key={episode.id}>
                   {episode.name}
                 </Link>
               </ol>
