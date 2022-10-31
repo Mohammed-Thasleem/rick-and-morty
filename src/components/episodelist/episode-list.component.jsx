@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
-import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
 import "./episode-list.styles.css";
+import { Col, Row, Input } from "antd";
 
 const EPISODES = gql`
   query Query {
@@ -16,6 +16,8 @@ const EPISODES = gql`
   }
 `;
 
+const { Search } = Input;
+
 const EpisodeList = () => {
   const { loading, data, error } = useQuery(EPISODES);
   if (loading) return <Spinner />;
@@ -24,16 +26,27 @@ const EpisodeList = () => {
   return (
     <div className="page-container">
       <h1 className="page-title">Episodes</h1>
+      <Search
+        style={{ width: 600 }}
+        placeholder="Search for Episode"
+        allowClear
+        enterButton="Search"
+        size="large"
+        // onSearch={onSearch}
+      />
       <div className="episodes-container">
         {data?.episodes?.results.map((episode) => (
-          <ul className="episode-container" key={episode.id} episode={episode}>
-            <>
-              <Link className="title" to={episode.id}>
-                Name: {episode.name}
-              </Link>
-              <li>Aired Date: {episode.air_date}</li>
-            </>
-          </ul>
+          <Link
+            className="title"
+            to={episode.id}
+            key={episode.id}
+            episode={episode}
+          >
+            <Row className="episode-container">
+              <Col span={24}>Name: {episode.name}</Col>
+              <Col span={24}>Aired Date: {episode.air_date}</Col>
+            </Row>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,34 +1,7 @@
 .episode-detail-container {
   padding: 2rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-}
-
-.dropdown {
-  position: relative;
-}
-
-.btn {
-  background-color: black;
-  color: white;
-}
-
-.menu {
-  position: absolute;
-  margin: 5px 0;
-  padding: 0;
-  border: 1px solid black;
-  width: 200px;
-}
-
-.character-name {
-  margin: 0;
-  background-color: white;
-  text-decoration: none;
-  color: black;
-}
-
-.character-name:hover {
-  background-color: lightgray;
+  align-items: center;
 }

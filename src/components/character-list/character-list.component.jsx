@@ -1,6 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
-import "./character-list.styles.css";
+import { Card, Input } from "antd";
+import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
+import "./character-list.styles.css";
 
 const CHARACTERS = gql`
   query Query {
@@ -17,6 +19,9 @@ const CHARACTERS = gql`
   }
 `;
 
+const { Meta } = Card;
+const { Search } = Input;
+
 const CharacterList = () => {
   const { loading, data, error } = useQuery(CHARACTERS);
   if (loading) return <Spinner />;
@@ -25,23 +30,31 @@ const CharacterList = () => {
   return (
     <div className="page-container">
       <h1 className="page-title">Characters</h1>
+      <Search
+        style={{ width: 600 }}
+        placeholder="Search for Character"
+        allowClear
+        enterButton="Search"
+        size="large"
+        // onSearch={onSearch}
+      />
       <div className="characters-container">
         {data?.characters?.results.map((character) => (
-          <ul
-            className="character-container"
-            key={character.id}
-            character={character}
-          >
-            <>
-              <li>
-                <img src={character.image} alt={`character ${character.id}`} />
-              </li>
-              <li>Name: {character.name}</li>
-              <li>Status: {character.status}</li>
-              <li>Species: {character.species}</li>
-              <li>Gender: {character.gender}</li>
-            </>
-          </ul>
+          <Link to={character.id} key={character.id}>
+            <Card
+              hoverable
+              style={{
+                width: 400,
+              }}
+              cover={<img alt={character.name} src={character.image} />}
+            >
+              <Meta title={`Name: ${character.name}`} />
+              <br />
+              <p>{`Gender: ${character.gender}`}</p>
+              <p>{`Status: ${character.status}`}</p>
+              <p>{`Species: ${character.species}`}</p>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>

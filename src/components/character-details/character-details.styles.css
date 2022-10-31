@@ -1,0 +1,7 @@
+.character-details-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
