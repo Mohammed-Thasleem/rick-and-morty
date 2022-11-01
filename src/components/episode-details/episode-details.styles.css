@@ -5,3 +5,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.character {
+  display: flex;
+}
+
+.image {
+  margin-right: 15px;
+}

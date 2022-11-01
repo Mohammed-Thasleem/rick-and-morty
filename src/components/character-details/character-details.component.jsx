@@ -35,8 +35,6 @@ const CharacterDetails = () => {
   const { loading, data, error } = useQuery(GET_CHARACTER, {
     variables: { characterId: id },
   });
-  console.log({ data: data });
-  console.log({ loading: loading });
 
   if (loading) return <Spinner />;
   if (error) return <div>error...</div>;

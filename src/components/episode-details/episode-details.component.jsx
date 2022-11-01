@@ -1,4 +1,4 @@
-import { Card, Collapse } from "antd";
+import { Card, Collapse, Avatar } from "antd";
 import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ const GET_EPISODE = gql`
       characters {
         id
         name
+        image
       }
     }
   }
@@ -39,7 +40,10 @@ const EpisodeDetails = () => {
             {data?.episode?.characters?.map((character) => (
               <ol key={character.id}>
                 <Link to={`/${character.id}`} key={character.id}>
-                  {character.name}
+                  <div className="character">
+                    <Avatar className="image" src={character.image} />
+                    <p>{character.name}</p>
+                  </div>
                 </Link>
               </ol>
             ))}

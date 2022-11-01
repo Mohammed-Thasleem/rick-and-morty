@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
-import { Card, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Input } from "antd";
 import Spinner from "../spinner/spinner.component";
 import "./character-list.styles.css";
+import CharacterCard from "../character-card/character-card.component";
 
 const CHARACTERS = gql`
   query Query {
@@ -18,12 +18,34 @@ const CHARACTERS = gql`
     }
   }
 `;
+// const CHARACTERS = gql`
+// query Query($page: Int, $filter: FilterCharacter) {
+//   characters(page: $page, filter: $filter) {
+//     info {
+//       count
+//       next
+//       pages
+//       prev
+//     }
+//     results {
+//       id
+//       image
+//       name
+//       species
+//       status
+//       gender
+//     }
+//   }
+// }
+// `
 
-const { Meta } = Card;
 const { Search } = Input;
 
 const CharacterList = () => {
   const { loading, data, error } = useQuery(CHARACTERS);
+  // const { loading, data, fetchMore, error } = useQuery(CHARACTERS, {
+  //   variables: { page, filter }
+  // })
   if (loading) return <Spinner />;
   if (error) return "something went wrong";
 
@@ -40,21 +62,7 @@ const CharacterList = () => {
       />
       <div className="characters-container">
         {data?.characters?.results.map((character) => (
-          <Link to={character.id} key={character.id}>
-            <Card
-              hoverable
-              style={{
-                width: 400,
-              }}
-              cover={<img alt={character.name} src={character.image} />}
-            >
-              <Meta title={`Name: ${character.name}`} />
-              <br />
-              <p>{`Gender: ${character.gender}`}</p>
-              <p>{`Status: ${character.status}`}</p>
-              <p>{`Species: ${character.species}`}</p>
-            </Card>
-          </Link>
+          <CharacterCard key={character.id} character={character} />
         ))}
       </div>
     </div>
