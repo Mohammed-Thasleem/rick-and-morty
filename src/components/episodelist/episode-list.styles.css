@@ -12,7 +12,8 @@
 }
 
 .episodes-container {
-  height: 1800px;
+  min-height: fit-content;
+  max-height: 1800px;
   width: 40vw;
   margin: 0 auto;
   padding: 3rem;

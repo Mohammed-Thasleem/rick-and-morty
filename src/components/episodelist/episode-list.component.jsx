@@ -1,12 +1,33 @@
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
+import { Col, Row } from "antd";
+import SearchBox from "../search/search.component";
+import { useEffect, useState } from "react";
 import "./episode-list.styles.css";
-import { Col, Row, Input } from "antd";
+// import PaginationComponent from "../pagination/pagiantion.component";
+// import { useState } from "react";
 
+// const EPISODES = gql`
+//   query Query {
+//     episodes {
+//       results {
+//         id
+//         name
+//         air_date
+//       }
+//     }
+//   }
+// `;
 const EPISODES = gql`
-  query Query {
-    episodes {
+  query Query($page: Int) {
+    episodes(page: $page) {
+      info {
+        count
+        next
+        pages
+        prev
+      }
       results {
         id
         name
@@ -16,26 +37,56 @@ const EPISODES = gql`
   }
 `;
 
-const { Search } = Input;
+// const { Search } = Input;
 
-const EpisodeList = () => {
-  const { loading, data, error } = useQuery(EPISODES);
+const EpisodeList = ({ page }) => {
+  // const { loading, data, error } = useQuery(EPISODES);
+  const { loading, data, error } = useQuery(EPISODES, {
+    variables: { page },
+  });
+
+  // const [current, setCurrent] = useState(1);
+  // const onChange = (page) => {
+  //   console.log(page);
+  //   setCurrent(page);
+  // };
+  const [searchField, setSearchField] = useState("");
+  const [filteredEpisodes, setFilteredEpisodes] = useState(
+    data?.episodes?.results
+  );
+  const onSearchChange = (event) => {
+    const searchFieldStirng = event.target.value.toLocaleLowerCase();
+    setSearchField(searchFieldStirng);
+  };
+  useEffect(() => {
+    const newFilteredEpisodes = data?.episodes?.results.filter((episode) => {
+      return episode.name.toLocaleLowerCase().includes(searchField);
+    });
+
+    setFilteredEpisodes(newFilteredEpisodes);
+  }, [data?.episodes?.results, searchField]);
+
   if (loading) return <Spinner />;
   if (error) return <div>something went wrong..</div>;
 
   return (
-    <div className="page-container">
+    <div
+      className="page-container"
+      // onLoadMore={() =>
+      //   fetchMore({
+      //     variables: {
+      //       page: data.episodes.info.next || data.episode.info.prev,
+      //     },
+      //   })
+      // }
+    >
       <h1 className="page-title">Episodes</h1>
-      <Search
-        style={{ width: 600 }}
+      <SearchBox
         placeholder="Search for Episode"
-        allowClear
-        enterButton="Search"
-        size="large"
-        // onSearch={onSearch}
+        onChangeHandler={onSearchChange}
       />
-      <div className="episodes-container">
-        {data?.episodes?.results.map((episode) => (
+      <div className="episodes-container" episodes={filteredEpisodes}>
+        {filteredEpisodes.map((episode) => (
           <Link
             className="title"
             to={episode.id}
@@ -48,6 +99,7 @@ const EpisodeList = () => {
             </Row>
           </Link>
         ))}
+        {/* <PaginationComponent current={current} onChange={onChange} total={51} /> */}
       </div>
     </div>
   );
