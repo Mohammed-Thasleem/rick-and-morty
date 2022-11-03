@@ -44,7 +44,6 @@ const CharacterList = ({ page, filter }) => {
   const { loading, data, error } = useQuery(CHARACTERS, {
     variables: { page, filter },
   });
-  console.log(data);
   if (loading) return <Spinner />;
   if (error) return "something went wrong";
 
