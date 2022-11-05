@@ -1,26 +1,15 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
-import { Col, Row } from "antd";
+import { Col, Pagination, Row } from "antd";
 import SearchBox from "../search/search.component";
 import { useEffect, useState } from "react";
 import "./episode-list.styles.css";
-import PaginationComponent from "../pagination/pagiantion.component";
+// import PaginationComponent from "../pagination/pagination.component";
 
-// const EPISODES = gql`
-//   query Query {
-//     episodes {
-//       results {
-//         id
-//         name
-//         air_date
-//       }
-//     }
-//   }
-// `;
 const EPISODES = gql`
-  query Query($page: Int) {
-    episodes(page: $page) {
+  query Query($page: Int, $filter: FilterEpisode) {
+    episodes(page: $page, filter: $filter) {
       info {
         count
         next
@@ -36,46 +25,46 @@ const EPISODES = gql`
   }
 `;
 
-// const { Search } = Input;
-
-const EpisodeList = ({ page }) => {
-  // const { loading, data, error } = useQuery(EPISODES);
-  const { loading, data, error } = useQuery(EPISODES, {
-    variables: { page },
-  });
-
-  // const [current, setCurrent] = useState(1);
-  // const onChange = (page) => {
-  //   console.log(page);
-  //   setCurrent(page);
-  // };
-  let [pageNumber, updatePageNumber] = useState(1);
-
+const EpisodeList = () => {
   const [searchField, setSearchField] = useState("");
-  const [filteredEpisodes, setFilteredEpisodes] = useState(
-    data?.episodes?.results
+  const [episodeList, setEpisodeList] = useState([]);
+  const [getEpisodeList, { loading, data, error, fetchMore }] = useLazyQuery(
+    EPISODES,
+    {
+      onCompleted: (data) => {
+        if (data?.episodes) {
+          setEpisodeList(data?.episodes);
+        }
+      },
+    }
   );
-  const onSearchChange = (event) => {
-    const searchFieldStirng = event.target.value.toLocaleLowerCase();
-    setSearchField(searchFieldStirng);
-  };
-  useEffect(() => {
-    const newFilteredEpisodes = data?.episodes?.results.filter((episode) => {
-      return episode.name.toLocaleLowerCase().includes(searchField);
+
+  function onSearch() {
+    getEpisodeList({
+      variables: {
+        filter: {
+          name: searchField,
+        },
+      },
     });
+  }
 
-    setFilteredEpisodes(newFilteredEpisodes);
-  }, [data?.episodes?.results, searchField]);
+  async function onLoadMore(pageNumber) {
+    const result = await fetchMore({
+      variables: {
+        page: pageNumber,
+      },
+    });
+    if (result?.data?.episodes) {
+      setEpisodeList(result?.data?.episodes);
+    }
+    console.log(data);
+  }
 
-  // function onLoadMore(page) {
-  //   fetchMore({
-  //     variables: {
-  //       page: data.episodes.info.next,
-  //     },
-  //   });
-  // }
+  useEffect(() => {
+    getEpisodeList();
+  }, []);
 
-  if (loading) return <Spinner />;
   if (error) return <div>something went wrong..</div>;
 
   return (
@@ -83,42 +72,34 @@ const EpisodeList = ({ page }) => {
       <h1 className="page-title">Episodes</h1>
       <SearchBox
         placeholder="Search for Episode"
-        onChangeHandler={onSearchChange}
+        onSearch={onSearch}
+        setSearchField={setSearchField}
       />
       <div className="episodes-container">
-        {searchField.length > 1
-          ? filteredEpisodes.map((episode) => (
-              <Link
-                className="title"
-                to={episode.id}
-                key={episode.id}
-                episode={episode}
-              >
-                <Row className="episode-container">
-                  <Col span={24}>Name: {episode.name}</Col>
-                  <Col span={24}>Aired Date: {episode.air_date}</Col>
-                </Row>
-              </Link>
-            ))
-          : data?.episodes?.results.map((episode) => (
-              <Link
-                className="title"
-                to={episode.id}
-                key={episode.id}
-                episode={episode}
-              >
-                <Row className="episode-container">
-                  <Col span={24}>Name: {episode.name}</Col>
-                  <Col span={24}>Aired Date: {episode.air_date}</Col>
-                </Row>
-              </Link>
-            ))}
-        <br />
-        <PaginationComponent
-          info={data.episodes.info}
-          pageNumber={pageNumber}
-          updatePageNumber={updatePageNumber}
-          total={51}
+        {loading ? (
+          <Spinner />
+        ) : (
+          episodeList?.results?.map((episode) => (
+            <Link
+              className="title"
+              to={episode.id}
+              key={episode.id}
+              episode={episode}
+            >
+              <Row className="episode-container">
+                <Col span={24}>Name: {episode.name}</Col>
+                <Col span={24}>Aired Date: {episode.air_date}</Col>
+              </Row>
+            </Link>
+          ))
+        )}
+        <p />
+        <Pagination
+          onChange={onLoadMore}
+          total={episodeList.info?.count}
+          responsive
+          defaultCurrent={1}
+          pageSize={20}
         />
       </div>
     </div>
