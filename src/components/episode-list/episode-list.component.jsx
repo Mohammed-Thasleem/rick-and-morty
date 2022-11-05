@@ -28,7 +28,7 @@ const EPISODES = gql`
 const EpisodeList = () => {
   const [searchField, setSearchField] = useState("");
   const [episodeList, setEpisodeList] = useState([]);
-  const [getEpisodeList, { loading, data, error, fetchMore }] = useLazyQuery(
+  const [getEpisodeList, { loading, error, fetchMore }] = useLazyQuery(
     EPISODES,
     {
       onCompleted: (data) => {
@@ -58,7 +58,6 @@ const EpisodeList = () => {
     if (result?.data?.episodes) {
       setEpisodeList(result?.data?.episodes);
     }
-    console.log(data);
   }
 
   useEffect(() => {

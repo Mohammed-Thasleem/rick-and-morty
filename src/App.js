@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 import Navigation from "./components/navigation/navigation.component";
-import EpisodeList from "./components/episodelist/episode-list.component";
+import EpisodeList from "./components/episode-list/episode-list.component";
 import CharacterList from "./components/character-list/character-list.component";
 import EpisodeDetails from "./components/episode-details/episode-details.component";
 import CharacterDetails from "./components/character-details/character-details.component";
