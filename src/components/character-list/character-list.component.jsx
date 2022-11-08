@@ -88,17 +88,17 @@ const CharacterList = () => {
         setStatus={setStatus}
         setGender={setGender}
       />
-      <div className="characters-container">
-        {loading ? (
-          <Spinner />
-        ) : !loading && !error && characterList?.results?.length === 0 ? (
-          <div>No Matching results found</div>
-        ) : (
-          characterList?.results?.map((character) => (
+      {loading ? (
+        <Spinner />
+      ) : !loading && !error && characterList?.results?.length === 0 ? (
+        <h4 style={{ textAlign: "center" }}>No Matching results found</h4>
+      ) : (
+        <div className="characters-container">
+          {characterList?.results?.map((character) => (
             <CharacterCard key={character.id} character={character} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
       <p />
       <Pagination
         onChange={onLoadMore}
@@ -106,6 +106,7 @@ const CharacterList = () => {
         responsive
         defaultCurrent={1}
         pageSize={20}
+        showSizeChanger={false}
       />
     </div>
   );

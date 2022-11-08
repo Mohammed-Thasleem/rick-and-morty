@@ -1,10 +1,11 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
-import { Col, Pagination, Row } from "antd";
+import { Pagination } from "antd";
 import SearchBox from "../search/search.component";
 import { useEffect, useState } from "react";
 import "./episode-list.styles.scss";
+import { Table } from "antd";
 
 const EPISODES = gql`
   query getEpisodes($page: Int, $filter: FilterEpisode) {
@@ -37,6 +38,30 @@ const EpisodeList = () => {
       },
     }
   );
+
+  const columns = [
+    {
+      title: "Episode Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text, episode) => {
+        return <Link to={`/episodes/${episode?.key}`}>{text}</Link>;
+      },
+    },
+    {
+      title: "Aired Date",
+      dataIndex: "date",
+      key: "date",
+    },
+  ];
+
+  const data = episodeList?.results?.map((episode) => {
+    return {
+      key: episode.id,
+      name: episode.name,
+      date: episode.air_date,
+    };
+  });
 
   async function onLoadMore(pageNumber) {
     const result = await fetchMore({
@@ -72,19 +97,7 @@ const EpisodeList = () => {
         {loading ? (
           <Spinner />
         ) : (
-          episodeList?.results?.map((episode) => (
-            <Link
-              className="title"
-              to={episode.id}
-              key={episode.id}
-              episode={episode}
-            >
-              <Row className="episode-container">
-                <Col span={24}>Name : {episode.name}</Col>
-                <Col span={24}>Aired Date : {episode.air_date}</Col>
-              </Row>
-            </Link>
-          ))
+          <Table columns={columns} dataSource={data} pagination={false} />
         )}
         <p />
         <Pagination
@@ -93,6 +106,7 @@ const EpisodeList = () => {
           responsive
           defaultCurrent={1}
           pageSize={20}
+          showSizeChanger={false}
         />
       </div>
     </div>
