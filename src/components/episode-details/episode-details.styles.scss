@@ -4,12 +4,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}
 
-.character {
-  display: flex;
-}
+  .character {
+    display: flex;
 
-.image {
-  margin-right: 15px;
+    .image {
+      margin-right: 15px;
+    }
+  }
 }

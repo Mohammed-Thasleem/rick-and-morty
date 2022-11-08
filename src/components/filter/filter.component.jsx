@@ -3,8 +3,8 @@ import {
   genderCategory,
   speciesCategory,
   statusCategory,
-} from "./filter-category-menus";
-import "./filter.styles.css";
+} from "./filter-category/filter-category-menus";
+import "./filter.styles.scss";
 
 const Filter = ({
   species,

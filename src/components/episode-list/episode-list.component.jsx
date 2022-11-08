@@ -4,11 +4,10 @@ import Spinner from "../spinner/spinner.component";
 import { Col, Pagination, Row } from "antd";
 import SearchBox from "../search/search.component";
 import { useEffect, useState } from "react";
-import "./episode-list.styles.css";
-// import PaginationComponent from "../pagination/pagination.component";
+import "./episode-list.styles.scss";
 
 const EPISODES = gql`
-  query Query($page: Int, $filter: FilterEpisode) {
+  query getEpisodes($page: Int, $filter: FilterEpisode) {
     episodes(page: $page, filter: $filter) {
       info {
         count
@@ -39,16 +38,6 @@ const EpisodeList = () => {
     }
   );
 
-  function onSearch() {
-    getEpisodeList({
-      variables: {
-        filter: {
-          name: searchField,
-        },
-      },
-    });
-  }
-
   async function onLoadMore(pageNumber) {
     const result = await fetchMore({
       variables: {
@@ -61,8 +50,14 @@ const EpisodeList = () => {
   }
 
   useEffect(() => {
-    getEpisodeList();
-  }, []);
+    getEpisodeList({
+      variables: {
+        filter: {
+          name: searchField,
+        },
+      },
+    });
+  }, [getEpisodeList, searchField]);
 
   if (error) return <div>something went wrong..</div>;
 
@@ -71,7 +66,6 @@ const EpisodeList = () => {
       <h1 className="page-title">Episodes</h1>
       <SearchBox
         placeholder="Search for Episode"
-        onSearch={onSearch}
         setSearchField={setSearchField}
       />
       <div className="episodes-container">
@@ -86,8 +80,8 @@ const EpisodeList = () => {
               episode={episode}
             >
               <Row className="episode-container">
-                <Col span={24}>Name: {episode.name}</Col>
-                <Col span={24}>Aired Date: {episode.air_date}</Col>
+                <Col span={24}>Name : {episode.name}</Col>
+                <Col span={24}>Aired Date : {episode.air_date}</Col>
               </Row>
             </Link>
           ))
@@ -95,7 +89,7 @@ const EpisodeList = () => {
         <p />
         <Pagination
           onChange={onLoadMore}
-          total={episodeList.info?.count}
+          total={episodeList?.info?.count}
           responsive
           defaultCurrent={1}
           pageSize={20}

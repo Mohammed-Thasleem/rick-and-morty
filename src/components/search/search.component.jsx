@@ -2,7 +2,7 @@ import { Input } from "antd";
 
 const { Search } = Input;
 
-const SearchBox = ({ placeholder, setSearchField, onSearch }) => {
+const SearchBox = ({ placeholder, setSearchField }) => {
   const onSearchChange = (event) => {
     const searchFieldStirng = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldStirng);
@@ -15,7 +15,6 @@ const SearchBox = ({ placeholder, setSearchField, onSearch }) => {
       allowClear
       enterButton="Search"
       size="large"
-      onSearch={onSearch}
       onChange={onSearchChange}
     />
   );

@@ -5,10 +5,10 @@ import SearchBox from "../search/search.component";
 import { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import Filter from "../filter/filter.component";
-import "./character-list.styles.css";
+import "./character-list.styles.scss";
 
 const CHARACTERS = gql`
-  query Query($filter: FilterCharacter, $page: Int) {
+  query getCharacters($filter: FilterCharacter, $page: Int) {
     characters(filter: $filter, page: $page) {
       info {
         count

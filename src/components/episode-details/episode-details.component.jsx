@@ -3,15 +3,18 @@ import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
-import "./episode-details.styles.css";
+import cover from "../../rick-cover.png";
+import "./episode-details.styles.scss";
 
 const { Panel } = Collapse;
+const { Meta } = Card;
 
 const GET_EPISODE = gql`
-  query Query($episodeId: ID!) {
+  query getEpisodeById($episodeId: ID!) {
     episode(id: $episodeId) {
       id
       name
+      episode
       air_date
       characters {
         id
@@ -33,8 +36,17 @@ const EpisodeDetails = () => {
 
   return (
     <div className="episode-detail-container" key={data?.episode?.id}>
-      <Card title={data?.episode?.name} style={{ width: 300 }}>
-        <p>Aired Date: {data?.episode?.air_date}</p>
+      <Card
+        hoverable
+        style={{
+          width: 400,
+        }}
+        cover={<img alt="cover-img" src={cover} />}
+      >
+        <Meta title={`Name: ${data?.episode?.name}`} />
+        <br />
+        <p>Episode : {data?.episode?.episode}</p>
+        <p>Aired Date : {data?.episode?.air_date}</p>
         <Collapse>
           <Panel header="Characters">
             {data?.episode?.characters?.map((character) => (

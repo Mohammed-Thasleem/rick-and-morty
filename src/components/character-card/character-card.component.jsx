@@ -13,11 +13,11 @@ const CharacterCard = ({ character }) => {
         }}
         cover={<img alt={character.name} src={character.image} />}
       >
-        <Meta title={`Name: ${character.name}`} />
+        <Meta title={`Name : ${character.name}`} />
         <br />
-        <p>{`Gender: ${character.gender}`}</p>
-        <p>{`Status: ${character.status}`}</p>
-        <p>{`Species: ${character.species}`}</p>
+        <p>{`Gender : ${character.gender}`}</p>
+        <p>{`Status : ${character.status}`}</p>
+        <p>{`Species : ${character.species}`}</p>
       </Card>
     </Link>
   );

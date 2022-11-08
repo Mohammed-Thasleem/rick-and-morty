@@ -3,10 +3,10 @@ import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
-import "./character-details.styles.css";
+import "./character-details.styles.scss";
 
 const GET_CHARACTER = gql`
-  query Query($characterId: ID!) {
+  query getCharacterById($characterId: ID!) {
     character(id: $characterId) {
       id
       image
@@ -50,10 +50,10 @@ const CharacterDetails = () => {
       >
         <Meta title={`Name: ${data.character.name}`} />
         <br />
-        <p>{`Gender: ${data.character.gender}`}</p>
-        <p>{`Species: ${data.character.species}`}</p>
-        <p>{`Origin: ${data.character.origin.name}`}</p>
-        <p>{`Location: ${data.character.location.name}`}</p>
+        <p>{`Gender : ${data.character.gender}`}</p>
+        <p>{`Species : ${data.character.species}`}</p>
+        <p>{`Origin : ${data.character.origin.name}`}</p>
+        <p>{`Location : ${data.character.location.name}`}</p>
         <Collapse>
           <Panel header="Episodes">
             {data?.character?.episode?.map((episode) => (
