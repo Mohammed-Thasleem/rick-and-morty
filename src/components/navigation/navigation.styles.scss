@@ -29,13 +29,10 @@
     .nav-logo-container {
       .nav-logo {
         width: 200px;
-        color: #f5b921;
         align-items: center;
         margin-left: 20px;
         cursor: pointer;
         text-decoration: none;
-        font-size: 2rem;
-        flex-grow: 1;
       }
     }
 
@@ -70,10 +67,6 @@
           height: 100%;
           border-bottom: 3px solid transparent;
         }
-
-        // .nav-links.active {
-        //   color: #00b68c;
-        // }
       }
     }
 
@@ -109,7 +102,6 @@
 
     .nav-item .active {
       color: #00b68c;
-      border: none;
 
       .nav-links {
         padding: 1.5rem;

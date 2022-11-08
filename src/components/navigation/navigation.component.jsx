@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import logo from "../../assets/rick-and-morty-31015.png";
 import "./navigation.styles.scss";
-import logo from "../../rick-and-morty-31015.png";
 
 const Navigation = () => {
   const [click, setClick] = useState(false);
@@ -32,7 +32,7 @@ const Navigation = () => {
               <NavLink
                 to="/episodes"
                 className="nav-links"
-                // activeClassName="active"
+                activeClassName="active"
                 onClick={click ? handleClick : null}
               >
                 Episodes

@@ -9,10 +9,37 @@
   }
 
   .characters-container {
-    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 40px;
     padding: 3rem;
+  }
+
+  @media screen and (max-width: 1420px) {
+    .characters-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 1075px) {
+    .characters-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 660px) {
+    .characters-container {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media screen and (max-width: 744px) {
+  .page-container {
+    padding: 2rem 0;
+
+    .characters-container {
+      padding: 3rem 0;
+    }
   }
 }

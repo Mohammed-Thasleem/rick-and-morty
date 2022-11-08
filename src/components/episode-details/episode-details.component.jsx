@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Spinner from "../spinner/spinner.component";
-import cover from "../../rick-cover.png";
+import cover from "../../assets/rick-cover.png";
 import "./episode-details.styles.scss";
 
 const { Panel } = Collapse;

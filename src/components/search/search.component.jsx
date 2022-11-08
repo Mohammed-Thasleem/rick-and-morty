@@ -1,4 +1,5 @@
 import { Input } from "antd";
+import "./search.styles.scss";
 
 const { Search } = Input;
 
@@ -10,6 +11,7 @@ const SearchBox = ({ placeholder, setSearchField }) => {
 
   return (
     <Search
+      className="search-box"
       style={{ width: 600 }}
       placeholder={placeholder}
       allowClear
