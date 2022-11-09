@@ -52,7 +52,11 @@ const EpisodeDetails = () => {
           <Panel header="Characters">
             {data?.episode?.characters?.map((character) => (
               <ol key={character.id}>
-                <Link to={`/${character.id}`} key={character.id}>
+                <Link
+                  className="link"
+                  to={`/${character.id}`}
+                  key={character.id}
+                >
                   <div className="character">
                     <Avatar className="image" src={character.image} />
                     <p>{character.name}</p>

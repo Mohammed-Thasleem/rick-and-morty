@@ -59,7 +59,11 @@ const CharacterDetails = () => {
           <Panel header="Episodes">
             {data?.character?.episode?.map((episode) => (
               <ol key={episode.id}>
-                <Link to={`/episodes/${episode.id}`} key={episode.id}>
+                <Link
+                  className="link"
+                  to={`/episodes/${episode.id}`}
+                  key={episode.id}
+                >
                   {episode.name}
                 </Link>
               </ol>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import logo from "../../assets/rick-and-morty-31015.png";
 import "./navigation.styles.scss";
 
@@ -8,6 +8,9 @@ const Navigation = () => {
 
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
+
+  const location = useLocation();
+  const { pathname } = location;
 
   return (
     <div>
@@ -19,22 +22,22 @@ const Navigation = () => {
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <NavLink
+              <Link
                 to="/"
-                className="nav-links"
+                className={pathname === "/" ? "active" : "nav-links"}
                 onClick={click ? handleClick : null}
               >
                 Characters
-              </NavLink>
+              </Link>
             </li>
             <li className="nav-item">
-              <NavLink
+              <Link
                 to="/episodes"
-                className="nav-links"
+                className={pathname === "/episodes" ? "active" : "nav-links"}
                 onClick={click ? handleClick : null}
               >
                 Episodes
-              </NavLink>
+              </Link>
             </li>
           </ul>
           <div className="nav-icon" onClick={handleClick}>

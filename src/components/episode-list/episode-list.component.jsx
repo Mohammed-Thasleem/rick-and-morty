@@ -45,7 +45,11 @@ const EpisodeList = () => {
       dataIndex: "name",
       key: "name",
       render: (text, episode) => {
-        return <Link to={`/episodes/${episode?.key}`}>{text}</Link>;
+        return (
+          <Link className="link" to={`/episodes/${episode?.key}`}>
+            {text}
+          </Link>
+        );
       },
     },
     {
@@ -117,6 +121,7 @@ const EpisodeList = () => {
         defaultCurrent={1}
         pageSize={20}
         showSizeChanger={false}
+        hideOnSinglePage
       />
     </div>
   );

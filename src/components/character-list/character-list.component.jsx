@@ -116,6 +116,7 @@ const CharacterList = () => {
         defaultCurrent={1}
         pageSize={20}
         showSizeChanger={false}
+        hideOnSinglePage
       />
     </div>
   );
