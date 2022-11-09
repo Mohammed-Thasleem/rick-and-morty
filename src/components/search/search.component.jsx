@@ -12,7 +12,7 @@ const SearchBox = ({ placeholder, setSearchField }) => {
   return (
     <Search
       className="search-box"
-      style={{ width: 600 }}
+      style={{ width: 500 }}
       placeholder={placeholder}
       allowClear
       enterButton="Search"

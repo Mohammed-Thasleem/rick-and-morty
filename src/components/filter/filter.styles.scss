@@ -3,5 +3,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 480px;
+}
+
+@media screen and (max-width: 1075px) {
+  .filter-container {
+    margin-top: 1rem;
+  }
 }

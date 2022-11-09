@@ -22,7 +22,6 @@ const Navigation = () => {
               <NavLink
                 to="/"
                 className="nav-links"
-                // activeClassName="active"
                 onClick={click ? handleClick : null}
               >
                 Characters
@@ -32,7 +31,6 @@ const Navigation = () => {
               <NavLink
                 to="/episodes"
                 className="nav-links"
-                activeClassName="active"
                 onClick={click ? handleClick : null}
               >
                 Episodes

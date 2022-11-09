@@ -7,6 +7,7 @@ const CharacterCard = ({ character }) => {
   return (
     <Link to={character.id} key={character.id}>
       <Card
+        className="card"
         hoverable
         style={{
           width: 300,

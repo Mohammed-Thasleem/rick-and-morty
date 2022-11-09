@@ -75,23 +75,32 @@ const CharacterList = () => {
   return (
     <div className="page-container">
       <h1 className="page-title">Characters</h1>
-      <SearchBox
-        placeholder="Search for Character"
-        setSearchField={setSearchField}
-      />
-      <p />
-      <Filter
-        status={status}
-        gender={gender}
-        species={species}
-        setSpecies={setSpecies}
-        setStatus={setStatus}
-        setGender={setGender}
-      />
+      <div className="searchfilter-container">
+        <SearchBox
+          placeholder="Search for Character"
+          setSearchField={setSearchField}
+        />
+        <p />
+        <Filter
+          status={status}
+          gender={gender}
+          species={species}
+          setSpecies={setSpecies}
+          setStatus={setStatus}
+          setGender={setGender}
+        />
+      </div>
       {loading ? (
         <Spinner />
       ) : !loading && !error && characterList?.results?.length === 0 ? (
-        <h4 style={{ textAlign: "center" }}>No Matching results found</h4>
+        <h4
+          style={{
+            textAlign: "center",
+            marginTop: 1,
+          }}
+        >
+          No Matching results found
+        </h4>
       ) : (
         <div className="characters-container">
           {characterList?.results?.map((character) => (

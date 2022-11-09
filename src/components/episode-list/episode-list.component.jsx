@@ -96,19 +96,28 @@ const EpisodeList = () => {
       <div className="episodes-container">
         {loading ? (
           <Spinner />
+        ) : !loading && !error && episodeList?.results?.length === 0 ? (
+          <h4
+            style={{
+              textAlign: "center",
+              marginTop: 1,
+            }}
+          >
+            No Matching results found
+          </h4>
         ) : (
           <Table columns={columns} dataSource={data} pagination={false} />
         )}
         <p />
-        <Pagination
-          onChange={onLoadMore}
-          total={episodeList?.info?.count}
-          responsive
-          defaultCurrent={1}
-          pageSize={20}
-          showSizeChanger={false}
-        />
       </div>
+      <Pagination
+        onChange={onLoadMore}
+        total={episodeList?.info?.count}
+        responsive
+        defaultCurrent={1}
+        pageSize={20}
+        showSizeChanger={false}
+      />
     </div>
   );
 };

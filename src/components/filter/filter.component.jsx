@@ -26,11 +26,11 @@ const Filter = ({
 
   return (
     <div className="filter-container">
-      {/* <p /> */}
       <Select
         placeholder="Species"
         style={{
           width: 120,
+          marginRight: 10,
         }}
         value={species}
         onChange={(value) => handleChange(value, setSpecies)}
@@ -43,6 +43,7 @@ const Filter = ({
         placeholder="Status"
         style={{
           width: 120,
+          marginRight: 10,
         }}
         value={status}
         onChange={(value) => handleChange(value, setStatus)}
@@ -55,6 +56,7 @@ const Filter = ({
         placeholder="Gender"
         style={{
           width: 120,
+          marginRight: 10,
         }}
         value={gender}
         onChange={(value) => handleChange(value, setGender)}

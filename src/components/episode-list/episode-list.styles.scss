@@ -8,32 +8,29 @@
   .episodes-container {
     min-height: fit-content;
     max-height: 1800px;
-    width: 50vw;
+    width: 40vw;
     margin: 0 auto;
     padding: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
 
-    .episode-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid #000;
-      border-radius: 5px;
-      padding: 1rem;
-      cursor: pointer;
-      -moz-osx-font-smoothing: grayscale;
-      backface-visibility: hidden;
-      transform: translateZ(0);
-      transition: transform 0.25s ease-out;
-      font-size: 1rem;
+  @media screen and (max-width: 1200px) {
+    .episodes-container {
+      width: 60vw;
+    }
+  }
 
-      &:hover {
-        transform: scale(1.05);
-        color: black;
-      }
+  @media screen and (max-width: 910px) {
+    .episodes-container {
+      width: 70vw;
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    .episodes-container {
+      width: 80vw;
     }
   }
 }
-
-// @media screen and (max-width: );

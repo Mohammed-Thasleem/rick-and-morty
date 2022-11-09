@@ -42,6 +42,7 @@ const CharacterDetails = () => {
   return (
     <div className="character-details-container" key={data?.character?.id}>
       <Card
+        className="card"
         hoverable
         style={{
           width: 400,

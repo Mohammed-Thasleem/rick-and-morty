@@ -37,6 +37,7 @@ const EpisodeDetails = () => {
   return (
     <div className="episode-detail-container" key={data?.episode?.id}>
       <Card
+        className="card"
         hoverable
         style={{
           width: 400,
