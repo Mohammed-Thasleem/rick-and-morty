@@ -70,8 +70,6 @@ const CharacterList = () => {
     });
   }, [gender, getCharactersList, searchField, species, status]);
 
-  if (error) return "something went wrong";
-
   return (
     <div className="page-container">
       <h1 className="page-title">Characters</h1>
@@ -92,6 +90,15 @@ const CharacterList = () => {
       </div>
       {loading ? (
         <Spinner />
+      ) : error ? (
+        <h4
+          style={{
+            textAlign: "center",
+            marginTop: 1,
+          }}
+        >
+          Oops!!Something went wrong
+        </h4>
       ) : !loading && !error && characterList?.results?.length === 0 ? (
         <h4
           style={{

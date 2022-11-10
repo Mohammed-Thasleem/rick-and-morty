@@ -37,7 +37,17 @@ const CharacterDetails = () => {
   });
 
   if (loading) return <Spinner />;
-  if (error) return <div>error...</div>;
+  if (error)
+    return (
+      <h3
+        style={{
+          textAlign: "center",
+          marginTop: 10,
+        }}
+      >
+        Oops!!Something went wrong
+      </h3>
+    );
 
   return (
     <div className="character-details-container" key={data?.character?.id}>

@@ -88,8 +88,6 @@ const EpisodeList = () => {
     });
   }, [getEpisodeList, searchField]);
 
-  if (error) return <div>something went wrong..</div>;
-
   return (
     <div className="page-container">
       <h1 className="page-title">Episodes</h1>
@@ -100,6 +98,15 @@ const EpisodeList = () => {
       <div className="episodes-container">
         {loading ? (
           <Spinner />
+        ) : error ? (
+          <h4
+            style={{
+              textAlign: "center",
+              marginTop: 1,
+            }}
+          >
+            Oops!!Something went wrong
+          </h4>
         ) : !loading && !error && episodeList?.results?.length === 0 ? (
           <h4
             style={{

@@ -32,7 +32,17 @@ const EpisodeDetails = () => {
   });
 
   if (loading) return <Spinner />;
-  if (error) return <div>error...</div>;
+  if (error)
+    return (
+      <h3
+        style={{
+          textAlign: "center",
+          marginTop: 10,
+        }}
+      >
+        Oops!!Something went wrong
+      </h3>
+    );
 
   return (
     <div className="episode-detail-container" key={data?.episode?.id}>
